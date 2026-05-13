@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI for Educators Hub</title>
-    <meta name="description" content="The central hub for AI professional development for educators — training, playbooks, and tools to transform teaching with AI.">
+    <title>AI for Educators Hub — Pedagogy-first AI trainings for teachers</title>
+    <meta name="description" content="Practical, pedagogy-first AI trainings, playbooks, and tools for educators. Built by Brandon A. Baki — transforming classrooms with AI, the right way.">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -21,31 +21,29 @@
                         heading: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#4f46e5', // Indigo 600
-                        secondary: '#2563eb', // Blue 600
-                        accent: '#06b6d4', // Cyan 500
+                        primary: '#4f46e5',   // Indigo 600
+                        secondary: '#7c3aed', // Violet 600
+                        accent: '#06b6d4',    // Cyan 500
                         surface: '#ffffff',
                     },
                     animation: {
-                        'blob': 'blob 7s infinite',
-                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'blob': 'blob 14s infinite ease-in-out',
+                        'gradient-x': 'gradient-x 12s ease infinite',
+                        'reveal': 'reveal 0.7s ease-out forwards',
                     },
                     keyframes: {
                         blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '0%,100%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%':     { transform: 'translate(30px, -40px) scale(1.1)' },
+                            '66%':     { transform: 'translate(-25px, 20px) scale(0.95)' },
                         },
                         'gradient-x': {
-                            '0%, 100%': {
-                                'background-size': '200% 200%',
-                                'background-position': 'left center'
-                            },
-                            '50%': {
-                                'background-size': '200% 200%',
-                                'background-position': 'right center'
-                            },
+                            '0%,100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%':     { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        },
+                        reveal: {
+                            '0%':   { opacity: 0, transform: 'translateY(16px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
                         },
                     }
                 }
@@ -53,13 +51,13 @@
         }
     </script>
     <style>
-        /* Custom Scrollbar */
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #f8fafc; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; border: 2px solid #f8fafc; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-        /* Premium Dot Grid Background */
+        /* Dot grid background */
         .bg-dot-pattern {
             background-color: #f8fafc;
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
@@ -68,174 +66,419 @@
 
         .animation-delay-2000 { animation-delay: 2s; }
         .animation-delay-4000 { animation-delay: 4s; }
+
+        /* Unified brand-gradient accent strip applied uniformly to every card */
+        .card-strip::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+
+        /* Filter chip states */
+        .filter-chip {
+            transition: all .2s ease;
+        }
+        .filter-chip[aria-pressed="true"] {
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 8px 20px -8px rgba(79,70,229,0.5);
+        }
+
+        /* Reveal on scroll */
+        .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Category chip colors — single small dot of color, rest of card stays brand-neutral */
+        .cat-ai-tools  { background:#eef2ff; color:#4338ca; border-color:#c7d2fe; }
+        .cat-pedagogy  { background:#ecfeff; color:#0e7490; border-color:#a5f3fc; }
+        .cat-assessment{ background:#fdf4ff; color:#a21caf; border-color:#f5d0fe; }
+        .cat-simulation{ background:#ecfdf5; color:#047857; border-color:#a7f3d0; }
+        .cat-coming    { background:#f1f5f9; color:#475569; border-color:#e2e8f0; }
     </style>
 </head>
 <body class="bg-dot-pattern text-slate-800 antialiased selection:bg-primary selection:text-white pb-20 overflow-x-hidden">
 
     <!-- Sticky Navigation -->
-    <nav class="fixed top-0 w-full bg-white/85 backdrop-blur-xl border-b border-slate-200/80 z-50 transition-all duration-300 shadow-sm">
+    <nav class="fixed top-0 w-full bg-white/85 backdrop-blur-xl border-b border-slate-200/80 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
             <a href="index.html" class="flex items-center space-x-3 group">
                 <img src="AI_FOR_EDUCATORS_LOGO.jpeg" alt="AI for Educators Logo" class="h-12 w-auto rounded-xl shadow-sm mix-blend-multiply border border-slate-100 group-hover:shadow-md transition-shadow" onerror="this.style.display='none'">
                 <span class="font-heading font-extrabold text-2xl text-slate-900 hidden sm:block tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">AI for Educators</span>
             </a>
-            <div class="hidden md:flex items-center gap-2 text-sm font-bold">
-                <a href="#trainings" class="text-slate-600 hover:text-primary px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors">Trainings</a>
+            <div class="hidden md:flex items-center gap-1 text-sm font-bold">
+                <a href="#library" class="text-slate-600 hover:text-primary px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors">Library</a>
                 <a href="#updates" class="text-slate-600 hover:text-primary px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors">What's New</a>
                 <a href="#about" class="text-slate-600 hover:text-primary px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors">About</a>
-                <a href="#trainings" class="inline-flex items-center gap-2 text-white bg-slate-900 hover:bg-primary px-5 py-2.5 rounded-xl shadow-sm hover:shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all">
+                <a href="#connect" class="text-slate-600 hover:text-primary px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors">Connect</a>
+                <a href="#library" class="ml-2 inline-flex items-center gap-2 text-white bg-slate-900 hover:bg-primary px-5 py-2.5 rounded-xl shadow-sm hover:shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all">
                     Start Learning
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
             </div>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100" aria-label="Open menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200 bg-white">
+            <div class="px-6 py-4 flex flex-col gap-1 text-sm font-bold">
+                <a href="#library" class="px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-50">Library</a>
+                <a href="#updates" class="px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-50">What's New</a>
+                <a href="#about" class="px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-50">About</a>
+                <a href="#connect" class="px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-50">Connect</a>
+                <a href="#library" class="mt-2 inline-flex items-center justify-center gap-2 text-white bg-slate-900 hover:bg-primary px-5 py-3 rounded-xl shadow-sm transition-all">Start Learning</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Animated Blobs -->
-    <header class="relative pt-40 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
+    <!-- Hero -->
+    <header class="relative pt-36 pb-20 lg:pt-44 lg:pb-28 overflow-hidden">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full pointer-events-none opacity-60">
             <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/30 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-blob"></div>
-            <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-accent/30 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-blob animation-delay-2000"></div>
-            <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-blob animation-delay-4000"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-96 h-96 bg-accent/30 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-blob animation-delay-4000"></div>
         </div>
 
         <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-slate-200/50 rounded-full px-5 py-2 mb-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-slate-200/50 rounded-full px-5 py-2 mb-8 shadow-sm">
                 <span class="flex h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse"></span>
                 <span class="text-sm font-semibold text-slate-700 tracking-wide uppercase">The AI for Educators Hub</span>
             </div>
-            <h1 class="font-heading text-5xl lg:text-[5.5rem] font-black text-slate-900 tracking-normal leading-tight mb-8 drop-shadow-sm">
-                Everything Teachers <br class="hidden lg:block"/> Need to Master
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-accent animate-gradient-x inline-block pb-2">AI in the Classroom</span>
+
+            <h1 class="font-heading text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.05] mb-8">
+                Practical AI training,<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-x inline-block pb-2">built for real classrooms.</span>
             </h1>
-            <p class="text-lg lg:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-                A growing library of practical, pedagogy-first trainings, playbooks, and tools — designed to help educators save hours and teach better with AI.
+
+            <p class="text-lg lg:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed font-medium">
+                A pedagogy-first library of AI trainings, playbooks, and free tools — designed by an educator to help teachers save hours and teach better with AI.
             </p>
+
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#trainings" class="inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white transition-all duration-300 bg-slate-900 border border-slate-700 rounded-full hover:bg-primary hover:shadow-[0_0_30px_rgba(79,70,229,0.4)] hover:-translate-y-1 group">
-                    Browse Trainings
-                    <svg class="w-6 h-6 ml-3 transform group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <a href="#library" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 bg-slate-900 rounded-full hover:bg-primary hover:shadow-[0_0_30px_rgba(79,70,229,0.4)] hover:-translate-y-0.5">
+                    Browse the Library
+                    <svg class="w-5 h-5 ml-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 </a>
-                <a href="#about" class="inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-full hover:border-primary/40 hover:text-primary transition-all">
-                    What's inside?
+                <a href="#about" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-full hover:border-primary/40 hover:text-primary transition-all">
+                    Meet the founder
                 </a>
+            </div>
+
+            <!-- Trust strip -->
+            <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
+                <div class="bg-white/70 backdrop-blur-sm border border-slate-200/70 rounded-2xl px-4 py-3 text-center">
+                    <div class="font-heading text-2xl font-black text-slate-900">3</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Live Trainings</div>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm border border-slate-200/70 rounded-2xl px-4 py-3 text-center">
+                    <div class="font-heading text-2xl font-black text-slate-900">15+</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Modules</div>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm border border-slate-200/70 rounded-2xl px-4 py-3 text-center">
+                    <div class="font-heading text-2xl font-black text-slate-900">Free</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Tools Included</div>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm border border-slate-200/70 rounded-2xl px-4 py-3 text-center">
+                    <div class="font-heading text-2xl font-black text-slate-900">K–12 · HE</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Built for</div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Trainings Section -->
-    <section id="trainings" class="max-w-7xl mx-auto px-6 relative">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <div>
-                <span class="text-primary font-bold tracking-widest uppercase text-sm">Masterclass Library</span>
-                <h2 class="text-4xl lg:text-5xl font-heading font-black text-slate-900 tracking-tight mt-2">Trainings &amp; Playbooks</h2>
-                <p class="text-slate-600 text-lg mt-3 max-w-2xl font-medium">Self-paced modules with real classroom examples. Start with any track — each one is standalone.</p>
+    <!-- Authority / Founder -->
+    <section id="about" class="max-w-7xl mx-auto px-6 relative scroll-mt-24">
+        <div class="reveal bg-white/90 backdrop-blur-xl rounded-[2rem] p-8 lg:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 relative overflow-hidden card-strip">
+            <div class="absolute -top-20 -right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-14 items-center relative z-10">
+                <!-- Avatar block -->
+                <div class="flex flex-col items-center lg:items-start gap-5">
+                    <div class="relative">
+                        <div class="w-44 h-44 rounded-3xl bg-gradient-to-br from-primary via-secondary to-accent p-1 shadow-[0_20px_40px_-15px_rgba(79,70,229,0.4)]">
+                            <div class="w-full h-full rounded-[1.4rem] bg-white flex items-center justify-center font-heading font-black text-5xl text-transparent bg-clip-text bg-gradient-to-br from-primary via-secondary to-accent">
+                                BB
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-2 -right-2 bg-white border border-slate-200 rounded-full p-1.5 shadow-md">
+                            <div class="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center shadow-[0_0_12px_rgba(16,185,129,0.5)]">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <div class="font-heading font-black text-slate-900 text-xl tracking-tight">Brandon A. Baki</div>
+                        <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">Educator · AI Integration</div>
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                <div>
+                    <span class="text-primary font-bold tracking-widest uppercase text-sm">About the Hub</span>
+                    <h2 class="text-3xl lg:text-4xl font-heading font-black text-slate-900 tracking-tight mt-2 mb-5">Built by an educator. Designed for the classroom.</h2>
+                    <p class="text-slate-600 text-lg leading-relaxed font-medium mb-5">
+                        This hub exists because most "AI for teachers" content is either hype or guesswork. Every training here is built from real classroom practice — pedagogy first, prompts second, AI only where it earns its keep.
+                    </p>
+                    <p class="text-slate-600 text-base leading-relaxed font-medium mb-7">
+                        Trainings are written and pressure-tested with K–12 and higher-ed educators, with UAE curriculum context built in. Tools are free. Prompts are copy-ready. Everything is open access.
+                    </p>
+
+                    <!-- Trust chips -->
+                    <div class="flex flex-wrap gap-2 mb-7">
+                        <span class="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg">
+                            <svg class="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                            Pedagogy-first
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg">
+                            <svg class="w-3.5 h-3.5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            UAE context
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg">
+                            <svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            K–12 + Higher Ed
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg">
+                            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            Open access
+                        </span>
+                    </div>
+
+                    <!-- Inline socials -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="https://www.linkedin.com/in/brandon-a-baki-19a81735b/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-sm hover:shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            Connect on LinkedIn
+                        </a>
+                        <a href="https://www.youtube.com/@AIforEducators-AE/videos" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-primary/40 text-slate-700 hover:text-primary text-sm font-bold px-5 py-2.5 rounded-xl shadow-sm transition-all">
+                            <svg class="w-4 h-4 text-[#FF0000]" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Watch on YouTube
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-2xl px-4 py-2.5 shadow-sm w-fit">
-                <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="text-sm font-bold text-slate-600">3 trainings live · more coming soon</span>
-            </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <!-- Training Card: NotebookLM Slide Decks (LIVE) -->
-            <a href="nblm-slides.html" class="group bg-white/90 backdrop-blur-xl rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:border-primary/30 hover:shadow-[0_20px_40px_-10px_rgba(79,70,229,0.25)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary via-purple-500 to-accent rounded-t-[2rem]"></div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"></div>
-
-                <div class="relative z-10 flex items-center gap-3 mb-6">
-                    <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg">
-                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Live Now
-                    </span>
-                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-200">5 Modules</span>
-                </div>
-
-                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg shadow-primary/30 mb-6">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path></svg>
-                </div>
-
-                <h3 class="relative z-10 font-heading text-2xl font-black text-slate-900 tracking-tight mb-3">NotebookLM Slide Decks</h3>
-                <p class="relative z-10 text-slate-600 leading-relaxed mb-6 font-medium flex-1">Generate, resource, and refine world-class PowerPoint decks in minutes using NotebookLM — with classroom-ready prompts.</p>
-
-                <div class="relative z-10 pt-5 border-t border-slate-100">
-                    <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Professional Development</span>
-                    <span class="inline-flex items-center gap-1.5 text-primary font-bold group-hover:gap-3 transition-all">
-                        Open training
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </div>
-            </a>
-
-            <!-- Training Card: EduSim Gem V5.1 (LIVE) -->
-            <a href="edusim-gem.html" class="group bg-white/90 backdrop-blur-xl rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:border-emerald-400/40 hover:shadow-[0_20px_40px_-10px_rgba(16,185,129,0.25)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500 rounded-t-[2rem]"></div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-colors"></div>
-
-                <div class="relative z-10 flex items-center gap-3 mb-6 flex-wrap">
-                    <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg">
-                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Live Now
-                    </span>
-                    <span class="bg-sky-50 text-sky-700 text-xs font-bold px-3 py-1.5 rounded-lg border border-sky-200">Free Gem</span>
-                </div>
-
-                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/30 mb-6">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </div>
-
-                <h3 class="relative z-10 font-heading text-2xl font-black text-slate-900 tracking-tight mb-3">EduSim Gem V5.1</h3>
-                <p class="relative z-10 text-slate-600 leading-relaxed mb-6 font-medium flex-1">Generate a fully-playable, tiered, standards-aligned science simulation from any topic — free Gemini Gem with UAE context built in.</p>
-
-                <div class="relative z-10 pt-5 border-t border-slate-100">
-                    <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Interactive Simulations</span>
-                    <span class="inline-flex items-center gap-1.5 text-emerald-600 font-bold group-hover:gap-3 transition-all">
-                        Open training
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </div>
-            </a>
-
-            <!-- Training Card: Assessment Design in the Age of AI (LIVE) -->
-            <a href="ai-assessment.html" class="group bg-white/90 backdrop-blur-xl rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:border-fuchsia-400/40 hover:shadow-[0_20px_40px_-10px_rgba(192,38,211,0.25)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-fuchsia-600 via-rose-500 to-amber-500 rounded-t-[2rem]"></div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-fuchsia-500/10 rounded-full blur-3xl group-hover:bg-fuchsia-500/20 transition-colors"></div>
-
-                <div class="relative z-10 flex items-center gap-3 mb-6 flex-wrap">
-                    <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg">
-                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Live Now
-                    </span>
-                    <span class="bg-fuchsia-50 text-fuchsia-700 text-xs font-bold px-3 py-1.5 rounded-lg border border-fuchsia-200">5 Modules</span>
-                </div>
-
-                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-fuchsia-600 to-rose-500 flex items-center justify-center shadow-lg shadow-fuchsia-500/30 mb-6">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-
-                <h3 class="relative z-10 font-heading text-2xl font-black text-slate-900 tracking-tight mb-3">Assessment Design in the Age of AI</h3>
-                <p class="relative z-10 text-slate-600 leading-relaxed mb-6 font-medium flex-1">AI-proof traditional assessments, integrate AI into student work, and reform grading with oral defense (viva voce) and process-based evaluation.</p>
-
-                <div class="relative z-10 pt-5 border-t border-slate-100">
-                    <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Academic Integrity</span>
-                    <span class="inline-flex items-center gap-1.5 text-fuchsia-600 font-bold group-hover:gap-3 transition-all">
-                        Open training
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </div>
-            </a>
-
         </div>
     </section>
 
-    <!-- What's New / Updates Section -->
-    <section id="updates" class="max-w-7xl mx-auto px-6 relative mt-28 lg:mt-36">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+    <!-- Pillars / what's inside -->
+    <section class="max-w-7xl mx-auto px-6 mt-20 lg:mt-28">
+        <div class="reveal text-center mb-10">
+            <span class="text-primary font-bold tracking-widest uppercase text-sm">What's inside</span>
+            <h2 class="text-3xl lg:text-4xl font-heading font-black text-slate-900 tracking-tight mt-2">Everything is short, specific, and classroom-ready.</h2>
+        </div>
+        <div class="reveal grid grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-white/90 backdrop-blur-xl rounded-2xl p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 hover:border-primary/30 transition-all">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h4 class="font-heading font-black text-slate-900 mb-1.5">Fast wins</h4>
+                <p class="text-slate-600 text-sm leading-relaxed font-medium">Most trainings take under 20 minutes start to finish.</p>
+            </div>
+            <div class="bg-white/90 backdrop-blur-xl rounded-2xl p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 hover:border-primary/30 transition-all">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h4 class="font-heading font-black text-slate-900 mb-1.5">Classroom-tested</h4>
+                <p class="text-slate-600 text-sm leading-relaxed font-medium">Real examples from K–12 and higher ed contexts.</p>
+            </div>
+            <div class="bg-white/90 backdrop-blur-xl rounded-2xl p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 hover:border-primary/30 transition-all">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 17H5a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v4M9 17l3 3m0 0l3-3m-3 3V9"></path></svg>
+                </div>
+                <h4 class="font-heading font-black text-slate-900 mb-1.5">Copy-ready prompts</h4>
+                <p class="text-slate-600 text-sm leading-relaxed font-medium">Reusable prompts you can ship across subjects.</p>
+            </div>
+            <div class="bg-white/90 backdrop-blur-xl rounded-2xl p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 hover:border-primary/30 transition-all">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h4 class="font-heading font-black text-slate-900 mb-1.5">Responsible use</h4>
+                <p class="text-slate-600 text-sm leading-relaxed font-medium">Every module covers safety, bias, and ethics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filterable Library -->
+    <section id="library" class="max-w-7xl mx-auto px-6 mt-24 lg:mt-32 relative scroll-mt-24">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
             <div>
-                <span class="text-accent font-bold tracking-widest uppercase text-sm">What's New</span>
+                <span class="text-primary font-bold tracking-widest uppercase text-sm">The Library</span>
+                <h2 class="text-4xl lg:text-5xl font-heading font-black text-slate-900 tracking-tight mt-2">Trainings &amp; Playbooks</h2>
+                <p class="text-slate-600 text-lg mt-3 max-w-2xl font-medium">Self-paced modules with real classroom examples. Filter by topic or search to find the right module.</p>
+            </div>
+            <div class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-2xl px-4 py-2.5 shadow-sm w-fit">
+                <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-sm font-bold text-slate-600"><span id="result-count">3</span> trainings · more coming soon</span>
+            </div>
+        </div>
+
+        <!-- Filter controls -->
+        <div class="bg-white/90 backdrop-blur-xl rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-5 lg:p-6 mb-10">
+            <div class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-chip text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-primary/40" data-filter="all" aria-pressed="true">All</button>
+                    <button class="filter-chip text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-primary/40" data-filter="ai-tools" aria-pressed="false">AI Tools</button>
+                    <button class="filter-chip text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-primary/40" data-filter="pedagogy" aria-pressed="false">Pedagogy</button>
+                    <button class="filter-chip text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-primary/40" data-filter="assessment" aria-pressed="false">Assessment</button>
+                    <button class="filter-chip text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-primary/40" data-filter="simulation" aria-pressed="false">Simulations</button>
+                </div>
+                <div class="relative lg:w-72">
+                    <svg class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input id="library-search" type="search" placeholder="Search trainings…" class="w-full pl-11 pr-4 py-2.5 text-sm font-medium bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-primary/40 focus:bg-white transition-all">
+                </div>
+            </div>
+        </div>
+
+        <!-- Card grid -->
+        <div id="library-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+
+            <!-- NotebookLM Slide Decks -->
+            <a href="nblm-slides.html" data-category="ai-tools" data-keywords="notebooklm slides powerpoint decks presentations professional development"
+               class="library-card group bg-white/95 backdrop-blur-xl rounded-3xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:border-primary/30 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.3)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col card-strip">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="cat-ai-tools inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">AI Tools</span>
+                    <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
+                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Live
+                    </span>
+                    <span class="bg-slate-50 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200">5 Modules</span>
+                </div>
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/30 mb-5">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path></svg>
+                </div>
+                <h3 class="relative z-10 font-heading text-xl lg:text-2xl font-black text-slate-900 tracking-tight mb-2">NotebookLM Slide Decks</h3>
+                <p class="relative z-10 text-slate-600 leading-relaxed mb-5 font-medium flex-1 text-sm">Generate, source, and refine world-class PowerPoint decks in minutes using NotebookLM — with classroom-ready prompts.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">~20 min</span>
+                    <span class="inline-flex items-center gap-1.5 text-primary font-bold text-sm group-hover:gap-3 transition-all">
+                        Open training
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                </div>
+            </a>
+
+            <!-- EduSim Gem V5.1 -->
+            <a href="edusim-gem.html" data-category="simulation" data-keywords="edusim gemini gem simulation science interactive game tiered standards uae"
+               class="library-card group bg-white/95 backdrop-blur-xl rounded-3xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:border-primary/30 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.3)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col card-strip">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="cat-simulation inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">Simulations</span>
+                    <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
+                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Live
+                    </span>
+                    <span class="bg-slate-50 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200">Free Gem</span>
+                </div>
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/30 mb-5">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="relative z-10 font-heading text-xl lg:text-2xl font-black text-slate-900 tracking-tight mb-2">EduSim Gem V5.1</h3>
+                <p class="relative z-10 text-slate-600 leading-relaxed mb-5 font-medium flex-1 text-sm">Generate a fully-playable, tiered, standards-aligned science simulation from any topic — free Gemini Gem with UAE context built in.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Masterclass</span>
+                    <span class="inline-flex items-center gap-1.5 text-primary font-bold text-sm group-hover:gap-3 transition-all">
+                        Open training
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                </div>
+            </a>
+
+            <!-- AI Assessment -->
+            <a href="ai-assessment.html" data-category="assessment" data-keywords="assessment ai-proof rubric viva voce oral defense grading academic integrity"
+               class="library-card group bg-white/95 backdrop-blur-xl rounded-3xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:border-primary/30 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.3)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col card-strip">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="cat-assessment inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">Assessment</span>
+                    <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
+                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Live
+                    </span>
+                    <span class="bg-slate-50 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200">5 Modules</span>
+                </div>
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/30 mb-5">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="relative z-10 font-heading text-xl lg:text-2xl font-black text-slate-900 tracking-tight mb-2">Assessment in the Age of AI</h3>
+                <p class="relative z-10 text-slate-600 leading-relaxed mb-5 font-medium flex-1 text-sm">AI-proof traditional assessments, integrate AI into student work, and reform grading with oral defense (viva voce) and process-based evaluation.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Masterclass</span>
+                    <span class="inline-flex items-center gap-1.5 text-primary font-bold text-sm group-hover:gap-3 transition-all">
+                        Open training
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Coming Soon placeholder -->
+            <div data-category="pedagogy" data-keywords="prompt library teachers planning"
+                 class="library-card bg-white/60 backdrop-blur-xl rounded-3xl p-7 border border-dashed border-slate-300 shadow-none relative overflow-hidden flex flex-col card-strip opacity-90">
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="cat-pedagogy inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">Pedagogy</span>
+                    <span class="cat-coming inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">In Development</span>
+                </div>
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center mb-5">
+                    <svg class="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="relative z-10 font-heading text-xl lg:text-2xl font-black text-slate-700 tracking-tight mb-2">The Educator's Prompt Library</h3>
+                <p class="relative z-10 text-slate-500 leading-relaxed mb-5 font-medium flex-1 text-sm">A curated library of copy-ready prompts organized by subject, grade level, and pedagogical move.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Coming soon</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Notify via LinkedIn</span>
+                </div>
+            </div>
+
+            <!-- Coming Soon placeholder 2 -->
+            <div data-category="ai-tools" data-keywords="gems notebooklm workflow integration"
+                 class="library-card bg-white/60 backdrop-blur-xl rounded-3xl p-7 border border-dashed border-slate-300 shadow-none relative overflow-hidden flex flex-col card-strip opacity-90">
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="cat-ai-tools inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">AI Tools</span>
+                    <span class="cat-coming inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">In Development</span>
+                </div>
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center mb-5">
+                    <svg class="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="relative z-10 font-heading text-xl lg:text-2xl font-black text-slate-700 tracking-tight mb-2">Gems × NotebookLM Workflows</h3>
+                <p class="relative z-10 text-slate-500 leading-relaxed mb-5 font-medium flex-1 text-sm">Build custom Gems that pull from your trusted NotebookLM source set — grounded planning, quizzing, and rubric workflows.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Coming soon</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Notify via LinkedIn</span>
+                </div>
+            </div>
+
+            <!-- Coming Soon placeholder 3 -->
+            <div data-category="pedagogy" data-keywords="ai literacy classroom citizen safe responsible"
+                 class="library-card bg-white/60 backdrop-blur-xl rounded-3xl p-7 border border-dashed border-slate-300 shadow-none relative overflow-hidden flex flex-col card-strip opacity-90">
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="cat-pedagogy inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">Pedagogy</span>
+                    <span class="cat-coming inline-flex items-center text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border">In Development</span>
+                </div>
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center mb-5">
+                    <svg class="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                </div>
+                <h3 class="relative z-10 font-heading text-xl lg:text-2xl font-black text-slate-700 tracking-tight mb-2">AI Literacy for Students</h3>
+                <p class="relative z-10 text-slate-500 leading-relaxed mb-5 font-medium flex-1 text-sm">A teacher-facing playbook for building AI-literate, ethical, and critical-thinking students from day one.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Coming soon</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Notify via LinkedIn</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div id="library-empty" class="hidden text-center py-16 bg-white/60 rounded-3xl border border-dashed border-slate-300 mt-2">
+            <svg class="w-12 h-12 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <p class="font-heading font-black text-slate-700 text-lg">No trainings match that filter yet.</p>
+            <p class="text-slate-500 text-sm font-medium mt-1">Try a different category or clear your search.</p>
+        </div>
+    </section>
+
+    <!-- What's New -->
+    <section id="updates" class="max-w-7xl mx-auto px-6 mt-24 lg:mt-32 relative scroll-mt-24">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div>
+                <span class="text-primary font-bold tracking-widest uppercase text-sm">What's New</span>
                 <h2 class="text-4xl lg:text-5xl font-heading font-black text-slate-900 tracking-tight mt-2">Latest AI Updates</h2>
-                <p class="text-slate-600 text-lg mt-3 max-w-2xl font-medium">Quick-read updates on the AI tools educators actually use — what's new, what works, and what's still rough around the edges.</p>
+                <p class="text-slate-600 text-lg mt-3 max-w-2xl font-medium">Quick-read updates on the AI tools educators actually use — what's new, what works, and what's still rough.</p>
             </div>
             <div class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-2xl px-4 py-2.5 shadow-sm w-fit">
                 <span class="flex h-2 w-2 rounded-full bg-cyan-500 animate-pulse"></span>
@@ -243,190 +486,160 @@
             </div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8">
-
-            <!-- Update Card: Gemini in Google Workspace -->
-            <article class="bg-white/90 backdrop-blur-xl rounded-[2rem] p-8 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white relative overflow-hidden">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-emerald-500 rounded-t-[2rem]"></div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
-
-                <div class="relative z-10 flex items-center gap-3 mb-6 flex-wrap">
-                    <span class="inline-flex items-center gap-1.5 bg-cyan-50 text-cyan-700 border border-cyan-200 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg">
-                        <span class="flex h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
-                        New
+        <div class="grid md:grid-cols-2 gap-7">
+            <!-- Update: Gemini in Workspace -->
+            <article class="reveal bg-white/95 backdrop-blur-xl rounded-3xl p-7 lg:p-9 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 relative overflow-hidden card-strip">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl"></div>
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="inline-flex items-center gap-1.5 bg-cyan-50 text-cyan-700 border border-cyan-200 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
+                        <span class="flex h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse"></span>New
                     </span>
-                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-200">Workspace Integration</span>
+                    <span class="bg-slate-50 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200 uppercase tracking-widest">Workspace</span>
                 </div>
-
-                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-cyan-500/30 mb-6">
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/30 mb-5">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                 </div>
-
-                <h3 class="relative z-10 font-heading text-2xl lg:text-3xl font-black text-slate-900 tracking-tight mb-4">Gemini Now Runs Your Google Workspace</h3>
-                <p class="relative z-10 text-slate-600 leading-relaxed mb-6 font-medium">
-                    Gemini can now <strong class="text-slate-900">create documents directly in your Drive</strong>, <strong class="text-slate-900">check your email</strong>, and <strong class="text-slate-900">manage your full Google Workspace</strong> on your behalf — drafting Docs, scanning Gmail for that parent reply, and organizing files without ever leaving the chat.
+                <h3 class="relative z-10 font-heading text-2xl font-black text-slate-900 tracking-tight mb-3">Gemini Now Runs Your Google Workspace</h3>
+                <p class="relative z-10 text-slate-600 leading-relaxed mb-5 font-medium text-sm">
+                    Gemini can now <strong class="text-slate-900">create documents directly in Drive</strong>, <strong class="text-slate-900">check your email</strong>, and <strong class="text-slate-900">manage your full Workspace</strong> on your behalf — drafting Docs, scanning Gmail, and organizing files without leaving the chat.
                 </p>
-
-                <div class="relative z-10 space-y-3 mb-6">
-                    <div class="flex items-start gap-3 bg-slate-50/70 rounded-xl p-4 border border-slate-200/60">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                <div class="relative z-10 space-y-2.5 mb-5">
+                    <div class="flex items-start gap-3 bg-slate-50/70 rounded-xl p-3.5 border border-slate-200/60">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 text-sm">Working well with</p>
-                            <p class="text-slate-600 text-sm font-medium">Google Docs, Sheets, Gmail, Calendar, and Drive file management.</p>
+                            <p class="text-slate-600 text-xs font-medium">Docs, Sheets, Gmail, Calendar, Drive file management.</p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-3 bg-amber-50/70 rounded-xl p-4 border border-amber-200/60">
-                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div class="flex items-start gap-3 bg-amber-50/70 rounded-xl p-3.5 border border-amber-200/60">
+                        <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-900 text-sm">Heads up: <code class="text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">.slides</code> files are rough</p>
-                            <p class="text-slate-600 text-sm font-medium">Gemini is currently struggling with Google Slides — formatting breaks, layouts drift, and edits often miss the mark. Stick with NotebookLM for slide decks until this stabilizes.</p>
+                            <p class="font-bold text-slate-900 text-sm">Heads up: Slides is rough</p>
+                            <p class="text-slate-600 text-xs font-medium">Gemini still struggles with Slides — formatting breaks, layouts drift. Stick with NotebookLM for decks.</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="relative z-10 pt-5 border-t border-slate-100">
-                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">For Educators</span>
-                    <p class="text-slate-600 text-sm leading-relaxed font-medium mt-2">Try: "Draft a parent email summarizing this week's lesson and save it to my Drive." Then watch Gemini do it end-to-end.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Try it</span>
+                    <p class="text-slate-600 text-sm leading-relaxed font-medium mt-1.5">"Draft a parent email summarizing this week's lesson and save it to my Drive." Then watch Gemini do it end-to-end.</p>
                 </div>
             </article>
 
-            <!-- Update Card: Gems + NotebookLM -->
-            <article class="bg-white/90 backdrop-blur-xl rounded-[2rem] p-8 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white relative overflow-hidden">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-rose-500 rounded-t-[2rem]"></div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
-
-                <div class="relative z-10 flex items-center gap-3 mb-6 flex-wrap">
-                    <span class="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 border border-purple-200 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg">
-                        <span class="flex h-1.5 w-1.5 rounded-full bg-purple-500 animate-pulse"></span>
-                        Updated
+            <!-- Update: Gems + NotebookLM -->
+            <article class="reveal bg-white/95 backdrop-blur-xl rounded-3xl p-7 lg:p-9 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 relative overflow-hidden card-strip">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"></div>
+                <div class="relative z-10 flex items-center gap-2 mb-5 flex-wrap">
+                    <span class="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 border border-purple-200 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
+                        <span class="flex h-1.5 w-1.5 rounded-full bg-purple-500 animate-pulse"></span>Updated
                     </span>
-                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-200">Gems × NotebookLM</span>
+                    <span class="bg-slate-50 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200 uppercase tracking-widest">Gems × NotebookLM</span>
                 </div>
-
-                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-purple-500/30 mb-6">
+                <div class="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg shadow-primary/30 mb-5">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
-
-                <h3 class="relative z-10 font-heading text-2xl lg:text-3xl font-black text-slate-900 tracking-tight mb-4">Gems &amp; Attachments Now Talk to NotebookLM</h3>
-                <p class="relative z-10 text-slate-600 leading-relaxed mb-6 font-medium">
-                    Google has updated <strong class="text-slate-900">Gems</strong> and <strong class="text-slate-900">attachments</strong> so they can now <strong class="text-slate-900">interact directly with your NotebookLM notebooks</strong>. That means a custom Gem (like EduSim) can pull from a curated NotebookLM source set — your textbooks, syllabi, district policy docs — and generate output grounded in those sources.
+                <h3 class="relative z-10 font-heading text-2xl font-black text-slate-900 tracking-tight mb-3">Gems &amp; Attachments Now Talk to NotebookLM</h3>
+                <p class="relative z-10 text-slate-600 leading-relaxed mb-5 font-medium text-sm">
+                    Google has updated <strong class="text-slate-900">Gems</strong> and <strong class="text-slate-900">attachments</strong> so they can <strong class="text-slate-900">interact directly with your NotebookLM notebooks</strong>. A custom Gem can now pull from a curated NotebookLM source set — your textbooks, syllabi, district policy docs — and generate output grounded in those sources.
                 </p>
-
-                <div class="relative z-10 space-y-3 mb-6">
-                    <div class="flex items-start gap-3 bg-slate-50/70 rounded-xl p-4 border border-slate-200/60">
-                        <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <div class="relative z-10 space-y-2.5 mb-5">
+                    <div class="flex items-start gap-3 bg-slate-50/70 rounded-xl p-3.5 border border-slate-200/60">
+                        <div class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 text-sm">Why it matters</p>
-                            <p class="text-slate-600 text-sm font-medium">Your Gems stop hallucinating curriculum and start citing your actual sources — textbook chapters, scheme of work, MOE docs.</p>
+                            <p class="text-slate-600 text-xs font-medium">Gems stop hallucinating curriculum and start citing your actual sources.</p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-3 bg-slate-50/70 rounded-xl p-4 border border-slate-200/60">
-                        <div class="w-8 h-8 rounded-lg bg-fuchsia-100 text-fuchsia-700 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    <div class="flex items-start gap-3 bg-slate-50/70 rounded-xl p-3.5 border border-slate-200/60">
+                        <div class="w-7 h-7 rounded-lg bg-fuchsia-100 text-fuchsia-700 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 text-sm">Try it next</p>
-                            <p class="text-slate-600 text-sm font-medium">Build a NotebookLM with your unit's primary sources, then attach it to a planning Gem to generate lessons, quizzes, or rubrics grounded in that material.</p>
+                            <p class="text-slate-600 text-xs font-medium">Build a NotebookLM with your unit's primary sources, attach it to a planning Gem.</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="relative z-10 pt-5 border-t border-slate-100">
-                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">For Educators</span>
-                    <p class="text-slate-600 text-sm leading-relaxed font-medium mt-2">This finally closes the loop between your custom Gems and your trusted source library. A full training module on this workflow is coming soon.</p>
+                <div class="relative z-10 pt-4 border-t border-slate-100">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">For educators</span>
+                    <p class="text-slate-600 text-sm leading-relaxed font-medium mt-1.5">A full training module on the Gems × NotebookLM workflow is coming soon.</p>
                 </div>
             </article>
-
-        </div>
-    </section>
-
-    <!-- About / Why Section -->
-    <section id="about" class="max-w-7xl mx-auto px-6 relative mt-28 lg:mt-36">
-        <div class="bg-white/90 backdrop-blur-xl rounded-[2.5rem] p-8 lg:p-16 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white relative overflow-hidden">
-            <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary via-purple-500 to-accent rounded-t-[2.5rem] opacity-50"></div>
-
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                <div>
-                    <span class="text-primary font-bold tracking-widest uppercase text-sm">What is this hub?</span>
-                    <h2 class="text-4xl lg:text-5xl font-heading font-black text-slate-900 tracking-tight mt-2 mb-6">Built by educators, for educators.</h2>
-                    <p class="text-slate-600 text-lg leading-relaxed font-medium mb-6">
-                        The AI for Educators Hub is a curated, pedagogy-first collection of AI trainings. Each module is short, specific, and built around a real classroom task you can accomplish today.
-                    </p>
-                    <p class="text-slate-600 text-lg leading-relaxed font-medium">
-                        No hype. No vague theory. Just practical workflows, copy-ready prompts, and tools that respect your time and your students.
-                    </p>
-                </div>
-
-                <div class="grid sm:grid-cols-2 gap-5">
-                    <div class="bg-slate-50/70 rounded-2xl p-6 border border-slate-200/60">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-primary flex items-center justify-center font-black text-lg border border-indigo-100 mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </div>
-                        <h4 class="font-heading font-black text-slate-900 mb-2">Fast wins</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Most trainings take under 20 minutes, start to finish.</p>
-                    </div>
-                    <div class="bg-slate-50/70 rounded-2xl p-6 border border-slate-200/60">
-                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-secondary flex items-center justify-center font-black text-lg border border-blue-100 mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <h4 class="font-heading font-black text-slate-900 mb-2">Classroom-ready</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Real examples from K-12 and higher ed contexts.</p>
-                    </div>
-                    <div class="bg-slate-50/70 rounded-2xl p-6 border border-slate-200/60">
-                        <div class="w-10 h-10 rounded-xl bg-cyan-50 text-accent flex items-center justify-center font-black text-lg border border-cyan-100 mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                        </div>
-                        <h4 class="font-heading font-black text-slate-900 mb-2">Prompt library</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Copy-ready prompts you can reuse across subjects.</p>
-                    </div>
-                    <div class="bg-slate-50/70 rounded-2xl p-6 border border-slate-200/60">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-black text-lg border border-emerald-100 mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-                        <h4 class="font-heading font-black text-slate-900 mb-2">Responsible use</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Every module covers safety, bias, and ethical use.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
     <!-- Final CTA -->
-    <section class="max-w-5xl mx-auto px-6 mt-28 lg:mt-36 text-center relative">
-        <h2 class="text-4xl lg:text-5xl font-heading font-black text-slate-900 tracking-tight mb-6">Ready to start?</h2>
-        <p class="text-slate-600 text-lg lg:text-xl mb-10 max-w-2xl mx-auto font-medium">
-            Pick your path — master AI slide decks, launch adaptive science simulations, or redesign your assessments for the age of AI.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
-            <a href="nblm-slides.html" class="inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white transition-all duration-300 bg-slate-900 border border-slate-700 rounded-full hover:bg-primary hover:shadow-[0_0_30px_rgba(79,70,229,0.4)] hover:-translate-y-1 group">
-                NotebookLM Slide Decks
-                <svg class="w-6 h-6 ml-3 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
-            <a href="edusim-gem.html" class="inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white transition-all duration-300 bg-gradient-to-r from-emerald-500 to-cyan-500 border border-emerald-400/50 rounded-full hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] hover:-translate-y-1 group">
-                EduSim Gem Masterclass
-                <svg class="w-6 h-6 ml-3 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
-            <a href="ai-assessment.html" class="inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white transition-all duration-300 bg-gradient-to-r from-fuchsia-600 to-rose-500 border border-fuchsia-400/50 rounded-full hover:shadow-[0_0_30px_rgba(192,38,211,0.4)] hover:-translate-y-1 group">
-                Assessment in the Age of AI
-                <svg class="w-6 h-6 ml-3 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
+    <section id="connect" class="max-w-5xl mx-auto px-6 mt-24 lg:mt-32 relative scroll-mt-24">
+        <div class="reveal relative rounded-[2rem] overflow-hidden bg-slate-900 p-10 lg:p-16 text-center shadow-[0_30px_60px_-20px_rgba(79,70,229,0.4)]">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 opacity-80"></div>
+            <div class="absolute -top-20 -left-20 w-80 h-80 bg-primary/40 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-accent/40 rounded-full blur-3xl"></div>
+
+            <div class="relative z-10">
+                <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+                    <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Open access · always free
+                </span>
+                <h2 class="text-3xl lg:text-5xl font-heading font-black text-white tracking-tight mb-5">Pick your path. Start today.</h2>
+                <p class="text-white/80 text-lg mb-9 max-w-2xl mx-auto font-medium">
+                    Master AI slide decks, launch adaptive science simulations, or redesign your assessments for the age of AI.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 flex-wrap">
+                    <a href="nblm-slides.html" class="inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold text-slate-900 bg-white rounded-full hover:-translate-y-0.5 hover:shadow-xl transition-all">
+                        NotebookLM Slide Decks
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="edusim-gem.html" class="inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 hover:-translate-y-0.5 transition-all">
+                        EduSim Gem Masterclass
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="ai-assessment.html" class="inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 hover:-translate-y-0.5 transition-all">
+                        Assessment in the Age of AI
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="max-w-7xl mx-auto px-6 mt-28 pt-10 border-t border-slate-200">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-            <div class="flex items-center gap-3">
-                <img src="AI_FOR_EDUCATORS_LOGO.jpeg" alt="AI for Educators Logo" class="h-8 w-auto rounded-lg mix-blend-multiply" onerror="this.style.display='none'">
-                <span class="font-heading font-bold text-slate-700">AI for Educators Hub</span>
+    <footer class="max-w-7xl mx-auto px-6 mt-24 pt-12 pb-6 border-t border-slate-200">
+        <div class="grid md:grid-cols-4 gap-10 mb-10">
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <img src="AI_FOR_EDUCATORS_LOGO.jpeg" alt="AI for Educators Logo" class="h-10 w-auto rounded-lg mix-blend-multiply" onerror="this.style.display='none'">
+                    <span class="font-heading font-extrabold text-xl text-slate-900 tracking-tight">AI for Educators Hub</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed font-medium max-w-md">
+                    Pedagogy-first AI trainings, playbooks, and tools for educators. Built by Brandon A. Baki — for teachers who want to work smarter, not harder.
+                </p>
             </div>
-            <span>Built for teachers who want to work smarter, not harder.</span>
+            <div>
+                <h5 class="font-heading font-black text-slate-900 text-sm tracking-tight uppercase mb-3">Library</h5>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="nblm-slides.html" class="text-slate-600 hover:text-primary font-medium">NotebookLM Slide Decks</a></li>
+                    <li><a href="edusim-gem.html" class="text-slate-600 hover:text-primary font-medium">EduSim Gem V5.1</a></li>
+                    <li><a href="ai-assessment.html" class="text-slate-600 hover:text-primary font-medium">Assessment in the Age of AI</a></li>
+                    <li><a href="#library" class="text-slate-600 hover:text-primary font-medium">Browse all →</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-heading font-black text-slate-900 text-sm tracking-tight uppercase mb-3">Connect</h5>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="https://www.linkedin.com/in/brandon-a-baki-19a81735b/" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary font-medium">LinkedIn</a></li>
+                    <li><a href="https://www.youtube.com/@AIforEducators-AE/videos" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary font-medium">YouTube</a></li>
+                    <li><a href="https://chat.whatsapp.com/DSIG8n8bSliJRORaethdYl" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary font-medium">WhatsApp Group</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-6 border-t border-slate-100 text-xs text-slate-500 font-medium">
+            <span>&copy; <span id="year"></span> AI for Educators Hub. All resources open access.</span>
+            <span class="uppercase tracking-widest">Built for teachers who want to work smarter, not harder.</span>
         </div>
     </footer>
 
@@ -435,25 +648,81 @@
         <!-- LinkedIn -->
         <div class="relative group flex items-center">
             <span class="absolute right-full mr-5 px-4 py-2 bg-slate-900 text-white text-sm font-bold rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0 whitespace-nowrap pointer-events-none shadow-xl border border-slate-700 before:content-[''] before:absolute before:top-1/2 before:-translate-y-1/2 before:-right-1.5 before:border-8 before:border-transparent before:border-l-slate-900">Connect on LinkedIn</span>
-            <a href="https://www.linkedin.com/in/brandon-a-baki-19a81735b/" target="_blank" class="w-14 h-14 bg-[#0077b5] text-white rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(0,119,181,0.3)] hover:-translate-y-1.5 hover:shadow-[0_12px_25px_rgba(0,119,181,0.5)] hover:bg-[#005e93] transition-all duration-300" title="Connect on LinkedIn">
+            <a href="https://www.linkedin.com/in/brandon-a-baki-19a81735b/" target="_blank" rel="noopener" class="w-14 h-14 bg-[#0077b5] text-white rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(0,119,181,0.3)] hover:-translate-y-1.5 hover:shadow-[0_12px_25px_rgba(0,119,181,0.5)] hover:bg-[#005e93] transition-all duration-300" title="Connect on LinkedIn">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
         </div>
         <!-- YouTube -->
         <div class="relative group flex items-center">
             <span class="absolute right-full mr-5 px-4 py-2 bg-slate-900 text-white text-sm font-bold rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0 whitespace-nowrap pointer-events-none shadow-xl border border-slate-700 before:content-[''] before:absolute before:top-1/2 before:-translate-y-1/2 before:-right-1.5 before:border-8 before:border-transparent before:border-l-slate-900">Watch on YouTube</span>
-            <a href="https://www.youtube.com/@AIforEducators-AE/videos" target="_blank" class="w-14 h-14 bg-[#FF0000] text-white rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(255,0,0,0.3)] hover:-translate-y-1.5 hover:shadow-[0_12px_25px_rgba(255,0,0,0.5)] hover:bg-[#cc0000] transition-all duration-300" title="Watch on YouTube">
+            <a href="https://www.youtube.com/@AIforEducators-AE/videos" target="_blank" rel="noopener" class="w-14 h-14 bg-[#FF0000] text-white rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(255,0,0,0.3)] hover:-translate-y-1.5 hover:shadow-[0_12px_25px_rgba(255,0,0,0.5)] hover:bg-[#cc0000] transition-all duration-300" title="Watch on YouTube">
                 <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
         </div>
         <!-- WhatsApp -->
         <div class="relative group flex items-center">
             <span class="absolute right-full mr-5 px-4 py-2 bg-slate-900 text-white text-sm font-bold rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0 whitespace-nowrap pointer-events-none shadow-xl border border-slate-700 before:content-[''] before:absolute before:top-1/2 before:-translate-y-1/2 before:-right-1.5 before:border-8 before:border-transparent before:border-l-slate-900">Join WhatsApp Group</span>
-            <a href="https://chat.whatsapp.com/DSIG8n8bSliJRORaethdYl" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(37,211,102,0.3)] hover:-translate-y-1.5 hover:shadow-[0_12px_25px_rgba(37,211,102,0.5)] hover:bg-[#1ebe57] transition-all duration-300" title="Join WhatsApp Group">
+            <a href="https://chat.whatsapp.com/DSIG8n8bSliJRORaethdYl" target="_blank" rel="noopener" class="w-14 h-14 bg-[#25D366] text-white rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(37,211,102,0.3)] hover:-translate-y-1.5 hover:shadow-[0_12px_25px_rgba(37,211,102,0.5)] hover:bg-[#1ebe57] transition-all duration-300" title="Join WhatsApp Group">
                 <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
             </a>
         </div>
     </div>
+
+    <script>
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+        // Filterable catalog
+        const chips = document.querySelectorAll('.filter-chip');
+        const cards = document.querySelectorAll('.library-card');
+        const search = document.getElementById('library-search');
+        const emptyState = document.getElementById('library-empty');
+        const resultCount = document.getElementById('result-count');
+        let activeFilter = 'all';
+
+        function applyFilter() {
+            const term = (search.value || '').trim().toLowerCase();
+            let visible = 0;
+            cards.forEach(card => {
+                const cat = card.dataset.category || '';
+                const keywords = (card.dataset.keywords || '') + ' ' + card.textContent.toLowerCase();
+                const matchesCat = activeFilter === 'all' || cat === activeFilter;
+                const matchesText = !term || keywords.toLowerCase().includes(term);
+                const show = matchesCat && matchesText;
+                card.classList.toggle('hidden', !show);
+                if (show) visible++;
+            });
+            emptyState.classList.toggle('hidden', visible > 0);
+            if (resultCount) resultCount.textContent = visible;
+        }
+
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                activeFilter = chip.dataset.filter;
+                chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+                applyFilter();
+            });
+        });
+        search?.addEventListener('input', applyFilter);
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(r => observer.observe(r));
+    </script>
 
 </body>
 </html>

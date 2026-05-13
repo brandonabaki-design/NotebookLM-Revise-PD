@@ -1081,9 +1081,41 @@
     </section>
 
     <!-- Footer -->
-    <footer class="text-center py-16 text-slate-500 text-sm border-t border-slate-200 mt-20 flex flex-col items-center justify-center bg-white relative z-10">
-        <img src="AI_FOR_EDUCATORS_LOGO.jpeg" alt="AI for Educators Logo" class="h-20 w-auto mb-6 rounded-xl mix-blend-multiply grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer shadow-sm border border-slate-100" onerror="this.style.display='none'">
-        <p class="font-medium text-base tracking-wide uppercase text-slate-400">Expertly crafted for educators. Transforming classrooms with AI.</p>
+    <footer class="bg-white border-t border-slate-200 mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 pt-12 pb-6">
+            <div class="grid md:grid-cols-4 gap-10 mb-10">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="flex items-center gap-3 mb-4 group">
+                        <img src="AI_FOR_EDUCATORS_LOGO.jpeg" alt="AI for Educators Logo" class="h-10 w-auto rounded-lg mix-blend-multiply" onerror="this.style.display='none'">
+                        <span class="font-heading font-extrabold text-xl text-slate-900 tracking-tight">AI for Educators Hub</span>
+                    </a>
+                    <p class="text-slate-600 text-sm leading-relaxed font-medium max-w-md">
+                        Pedagogy-first AI trainings, playbooks, and tools for educators. Built by Brandon A. Baki — for teachers who want to work smarter, not harder.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-heading font-black text-slate-900 text-sm tracking-tight uppercase mb-3">Library</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="nblm-slides.html" class="text-slate-600 hover:text-primary font-medium">NotebookLM Slide Decks</a></li>
+                        <li><a href="edusim-gem.html" class="text-slate-600 hover:text-primary font-medium">EduSim Gem V5.1</a></li>
+                        <li><a href="ai-assessment.html" class="text-slate-600 hover:text-primary font-medium">Assessment in the Age of AI</a></li>
+                        <li><a href="index.html#library" class="text-slate-600 hover:text-primary font-medium">Browse all &rarr;</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-heading font-black text-slate-900 text-sm tracking-tight uppercase mb-3">Connect</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.linkedin.com/in/brandon-a-baki-19a81735b/" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary font-medium">LinkedIn</a></li>
+                        <li><a href="https://www.youtube.com/@AIforEducators-AE/videos" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary font-medium">YouTube</a></li>
+                        <li><a href="https://chat.whatsapp.com/DSIG8n8bSliJRORaethdYl" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary font-medium">WhatsApp Group</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-6 border-t border-slate-100 text-xs text-slate-500 font-medium">
+                <span>&copy; <span class="footer-year"></span> AI for Educators Hub. All resources open access.</span>
+                <span class="uppercase tracking-widest">Built for teachers who want to work smarter, not harder.</span>
+            </div>
+        </div>
     </footer>
 
     <!-- Floating Contact Menu -->
@@ -1252,6 +1284,9 @@
 
         // Initial render
         document.addEventListener('DOMContentLoaded', generateBrief);
+
+        // Footer year
+        document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
     </script>
 </body>
 </html>
